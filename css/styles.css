@@ -22,6 +22,14 @@
         0px 1px 1px rgba(46, 47, 66, 0.16),
         0px 2px 1px rgba(46, 47, 66, 0.08);
     --header-shadow: 0px 2px 1px rgba(46, 47, 66, 0.08), 0px 1px 1px rgba(46, 47, 66, 0.16), 0px 1px 6px rgba(46, 47, 66, 0.08);
+    --time-transition: 250ms;
+    --time-function: cubic-bezier(0.4, 0, 0.2, 1);
+    --color-overlay: rgba(77, 90, 229, 0.9);
+    --backdrop-bgcolor: rgba(46, 47, 66, 0.4);
+    --modal-window-color: #FCFCFC;
+    --modal-window-shadow: 0px 1px 1px rgba(0, 0, 0, 0.14),
+        0px 1px 3px rgba(0, 0, 0, 0.12),
+        0px 2px 1px rgba(0, 0, 0, 0.2);
 }
 
 /* ========= RESET ========== */
@@ -136,6 +144,10 @@ body {
     margin-left: 76px;
 }
 
+.nav-header-item {
+    position: relative;
+}
+
 .nav-header-item:not(:last-child) {
     margin-right: 40px;
 }
@@ -154,6 +166,26 @@ body {
     font-weight: 500;
     letter-spacing: 0.02em;
     line-height: calc(24/16);
+
+    transition-property: color;
+    transition-duration: var(--time-transition);
+    transition-timing-function: var(--time-function);
+}
+
+
+.current::after {
+    display: block;
+    position: absolute;
+
+    content: '';
+    width: 100%;
+    height: 4px;
+    margin: 0 auto;
+    left: 0;
+    border-radius: 2px;
+    bottom: -1px;
+
+    background-color: var(--pressed-state);
 }
 
 .nav-header-link:is(:hover, :focus) {
@@ -181,6 +213,10 @@ body {
 
     line-height: calc(24/16);
     letter-spacing: 0.02em;
+
+    transition-property: color;
+    transition-duration: var(--time-transition);
+    transition-timing-function: var(--time-function);
 }
 
 .header-address-link:is(:hover, :focus) {
@@ -226,7 +262,7 @@ body {
     padding: 16px 32px;
 
     color: var(--color-button);
-    background: var(--primary-brand);
+    background-color: var(--primary-brand);
 
     font-weight: 500;
     font-size: 16px;
@@ -235,6 +271,10 @@ body {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
     border-radius: 4px;
     border: transparent;
+
+    transition-property: background-color;
+    transition-duration: var(--time-transition);
+    transition-timing-function: var(--time-function);
 }
 
 .hero-button:is(:hover, :focus) {
@@ -401,11 +441,16 @@ body {
     border-radius: 50%;
 
     background-color: var(--primary-brand);
+
+    transition-property: background-color;
+    transition-duration: var(--time-transition);
+    transition-timing-function: var(--time-function);
 }
 
 .team-social-icon {
     width: 16px;
     height: 16px;
+    fill: #F4F4FD;
 }
 
 .team-social-link:is(:hover, :focus) {
@@ -450,12 +495,20 @@ body {
     border: 1px solid var(--color-customers);
     border-radius: 4px;
     color: var(--color-customers);
+
+    transition-property: border-color;
+    transition-duration: var(--time-transition);
+    transition-timing-function: var(--time-function);
 }
 
 .customers-icon {
     width: 104px;
     height: 56px;
     fill: currentColor;
+
+    transition-property: color;
+    transition-duration: var(--time-transition);
+    transition-timing-function: var(--time-function);
 }
 
 .customers-link:is(:hover, :focus) {
@@ -529,7 +582,10 @@ body {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.1);
+    transition-property: background-color;
+    transition-duration: var(--time-transition);
+    transition-timing-function: var(--time-function);
 }
 
 .footer-social-link:is(:hover, :focus) {
@@ -539,6 +595,7 @@ body {
 .footer-social-icon {
     width: 24px;
     height: 24px;
+    fill: #F4F4FD;
 }
 
 /* ======== /FOOTER ========= */
@@ -573,6 +630,10 @@ body {
 
     border: 1px solid var(--color-footer-text);
     border-radius: 4px;
+
+    transition-property: background-color, border, border-radius, box-shadow;
+    transition-duration: var(--time-transition);
+    transition-timing-function: var(--time-function);
 }
 
 
@@ -626,10 +687,97 @@ body {
     height: 100%;
     display: flex;
     flex-direction: column;
+
+    transition-property: box-shadow;
+    transition-duration: var(--time-transition);
+    transition-timing-function: var(--time-function);
 }
 
 .portfolio-link:is(:hover, :focus) {
     box-shadow: var(--portfolio-gradient);
 }
 
-/* ======= /PORTFOLIO ======= */
+.portfolio-overlay-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+.portfolio-overlay-slide {
+    position: absolute;
+    width: 100%;
+    height: 300px;
+    padding: 40px 32px;
+    top: 0;
+    left: 0;
+    overflow: auto;
+
+    line-height: calc(24/16);
+    letter-spacing: 0.02em;
+
+    color: var(--color-section-bg);
+    background-color: var(--color-overlay);
+
+    transform: translate(0, 100%);
+    transition: transform var(--time-transition) var(--time-function);
+}
+
+.portfolio-link:is(:hover, :focus) .portfolio-overlay-slide {
+    transform: translate(0, 0);
+}
+
+/* ======= /PORTFOLIO =========== */
+
+/* ======== MODAL WINDOW ======== */
+.backdrop {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: var(--backdrop-bgcolor);
+    transition: opacity var(--time-transition) var(--time-function);
+}
+
+.modal {
+    position: absolute;
+    width: 408px;
+    height: 576px;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background-color: var(--modal-window-color);
+    box-shadow: var(--modal-window-shadow);
+    border-radius: 4px;
+
+    transition: width, height;
+    transition-duration: var(--time-transition);
+    transition-timing-function: var(--time-function);
+}
+
+.is-hidden {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal-button-close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    fill: #000000;
+    background-color: var(--border-decor);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transition: background-color var(--time-transition) var(--time-function);
+}
+
+.modal-button-close:hover {
+    fill: #ffffff;
+    background-color: var(--pressed-state);
+}
+
+/* ======== /MODAL WINDOW ======== */
