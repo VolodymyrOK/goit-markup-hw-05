@@ -781,7 +781,7 @@ body {
     fill: #000000;
     background-color: var(--border-decor);
     border: 1px solid rgba(0, 0, 0, 0.1);
-    transition: background-color, fill var(--time-transition) var(--time-function);
+    transition: background-color var(--time-transition) var(--time-function), fill var(--time-transition) var(--time-function);
 }
 
 .modal-button-close:is(:hover, :focus) {
