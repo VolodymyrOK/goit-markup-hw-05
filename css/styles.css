@@ -22,7 +22,7 @@
         0px 1px 1px rgba(46, 47, 66, 0.16),
         0px 2px 1px rgba(46, 47, 66, 0.08);
     --header-shadow: 0px 2px 1px rgba(46, 47, 66, 0.08), 0px 1px 1px rgba(46, 47, 66, 0.16), 0px 1px 6px rgba(46, 47, 66, 0.08);
-    --time-transition: 250ms;
+    --time-transition: 2250ms;
     --time-function: cubic-bezier(0.4, 0, 0.2, 1);
     --color-overlay: rgba(77, 90, 229, 0.9);
     --backdrop-bgcolor: rgba(46, 47, 66, 0.4);
@@ -506,7 +506,7 @@ body {
     border-radius: 4px;
     color: var(--color-customers);
 
-    transition-property: border-color;
+    transition-property: border-color, color;
     transition-duration: var(--time-transition);
     transition-timing-function: var(--time-function);
 }
@@ -515,10 +515,6 @@ body {
     width: 104px;
     height: 56px;
     fill: currentColor;
-
-    transition-property: color;
-    transition-duration: var(--time-transition);
-    transition-timing-function: var(--time-function);
 }
 
 .customers-link:is(:hover, :focus) {
@@ -641,7 +637,7 @@ body {
     border: 1px solid var(--color-footer-text);
     border-radius: 4px;
 
-    transition-property: background-color, border, border-radius, box-shadow;
+    transition-property: color, background-color, border-color, box-shadow;
     transition-duration: var(--time-transition);
     transition-timing-function: var(--time-function);
 }
@@ -782,10 +778,10 @@ body {
     fill: #000000;
     background-color: var(--border-decor);
     border: 1px solid rgba(0, 0, 0, 0.1);
-    transition: background-color var(--time-transition) var(--time-function);
+    transition: background-color, fill var(--time-transition) var(--time-function);
 }
 
-.modal-button-close:hover {
+.modal-button-close:is(:hover, :focus) {
     fill: #ffffff;
     background-color: var(--pressed-state);
 }
